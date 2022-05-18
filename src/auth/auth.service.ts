@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { SignupRequestDto } from './dto';
-import { hash } from 'argon2';
+import { SigninRequestDto, SignupRequestDto } from './dto';
+import { hash, verify } from 'argon2';
 import { DbService } from 'src/db/db.service';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 
@@ -34,7 +34,25 @@ export class AuthService {
     }
   }
 
-  signin() {
-    return { msg: 'Signin' };
+  async signin(dto: SigninRequestDto) {
+    const user = await this.dbService.user.findUnique({
+      where: {
+        email: dto.email,
+      },
+    });
+
+    if (user === null) {
+      throw new ForbiddenException('Invalid email or password');
+    }
+
+    const isPasswordValid = await verify(user.hash, dto.password);
+
+    if (!isPasswordValid) {
+      throw new ForbiddenException('Invalid email or password');
+    }
+
+    delete user.hash;
+
+    return user;
   }
 }
