@@ -8,9 +8,7 @@ export class AuthController {
 
   @Post('signup')
   signup(@Body(new ValidationPipe()) dto: SignupRequestDto) {
-    console.log({ dto });
-
-    return this.authService.signup();
+    return this.authService.signup(dto);
   }
 
   @Post('signin')

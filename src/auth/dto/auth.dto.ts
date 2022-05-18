@@ -12,3 +12,13 @@ export class SignupRequestDto {
   firstname?: string;
   lastname?: string;
 }
+
+export class SigninRequestDto {
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+}
