@@ -1,7 +1,7 @@
 import { AuthGuard } from '@nestjs/passport';
-import { ConstantsService } from 'src/constants/constants.service';
+import { JWT_STRATEGY_NAME } from '../strategy';
 
-export class JwtGuard extends AuthGuard(ConstantsService.JWT_STRATEGY_NAME) {
+export class JwtGuard extends AuthGuard(JWT_STRATEGY_NAME) {
   constructor() {
     super();
   }
