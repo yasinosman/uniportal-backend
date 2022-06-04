@@ -6,7 +6,7 @@ import {
   IsString,
 } from 'class-validator';
 
-enum UserRole {
+export enum USER_ROLE {
   STUDENT = 'STUDENT',
   LECTURER = 'LECTURER',
 }
@@ -29,8 +29,8 @@ export class SignupRequestDto {
   lastName: string;
 
   @IsOptional()
-  @IsEnum(UserRole)
-  role: UserRole;
+  @IsEnum(USER_ROLE)
+  role: USER_ROLE;
 }
 
 export class SigninRequestDto {
