@@ -4,6 +4,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
   UseGuards,
   ValidationPipe,
@@ -20,6 +21,11 @@ export class AnnouncementController {
   @Get('/')
   getAll() {
     return this.announcementService.getAll();
+  }
+
+  @Get('/:id')
+  getById(@Param('id') id: string) {
+    return this.announcementService.getById(parseInt(id));
   }
 
   @HttpCode(HttpStatus.CREATED)

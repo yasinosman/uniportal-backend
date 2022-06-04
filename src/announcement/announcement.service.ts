@@ -7,9 +7,26 @@ export class AnnouncementService {
   constructor(private dbService: DbService) {}
 
   async getAll() {
-    const announcements = await this.dbService.announcement.findMany();
+    const announcements = await this.dbService.announcement.findMany({
+      select: {
+        id: true,
+        createdAt: true,
+        title: true,
+        subtitle: true,
+        imgURL: true,
+        imgAlt: true,
+      },
+    });
 
     return announcements;
+  }
+
+  async getById(id: number) {
+    const announcement = await this.dbService.announcement.findFirst({
+      where: { id: id },
+    });
+
+    return announcement;
   }
 
   async create(dto: CreateAnnouncementDto) {
