@@ -1,4 +1,15 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+
+enum UserRole {
+  STUDENT = 'STUDENT',
+  LECTURER = 'LECTURER',
+}
 
 export class SignupRequestDto {
   @IsEmail()
@@ -16,6 +27,10 @@ export class SignupRequestDto {
   @IsString()
   @IsNotEmpty()
   lastName: string;
+
+  @IsOptional()
+  @IsEnum(UserRole)
+  role: UserRole;
 }
 
 export class SigninRequestDto {

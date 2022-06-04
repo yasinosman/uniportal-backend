@@ -15,7 +15,7 @@ export class AuthController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post('signup')
-  signup(@Body(new ValidationPipe()) dto: SignupRequestDto) {
+  signup(@Body() dto: SignupRequestDto) {
     return this.authService.signup(dto);
   }
 

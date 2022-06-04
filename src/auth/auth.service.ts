@@ -24,6 +24,7 @@ export class AuthService {
           hash: hashedPassword,
           firstName: dto.firstName,
           lastName: dto.lastName,
+          role: dto.role,
         },
       });
 

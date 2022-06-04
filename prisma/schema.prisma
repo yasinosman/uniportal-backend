@@ -15,6 +15,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  role Role @default(STUDENT)
+
   email String @unique
   hash  String
 
@@ -24,6 +26,11 @@ model User {
   Course             Course[]
   CourseAnnouncement CourseAnnouncement[]
   @@map("users")
+}
+
+enum Role {
+  STUDENT
+  LECTURER
 }
 
 model Course {
