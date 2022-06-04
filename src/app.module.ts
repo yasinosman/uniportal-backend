@@ -4,6 +4,7 @@ import { AuthModule } from './auth/auth.module';
 import { DbModule } from './db/db.module';
 import { ConfigModule } from '@nestjs/config';
 import { AnnouncementModule } from './announcement/announcement.module';
+import { EventModule } from './event/event.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AnnouncementModule } from './announcement/announcement.module';
     AuthModule,
     DbModule,
     AnnouncementModule,
+    EventModule,
   ],
 })
 export class AppModule {}
