@@ -10,9 +10,10 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { Roles } from 'src/auth/decorator';
+import { USER_ROLE } from 'src/auth/dto';
 import { JwtGuard, RolesGuard } from 'src/auth/guard';
 import { AnnouncementService } from './announcement.service';
-import { CreateAnnouncementDto, USER_ROLE } from './dto';
+import { CreateAnnouncementDto } from './dto';
 
 @Controller('announcements')
 export class AnnouncementController {
