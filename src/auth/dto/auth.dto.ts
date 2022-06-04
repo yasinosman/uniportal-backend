@@ -9,6 +9,7 @@ import {
 export enum USER_ROLE {
   STUDENT = 'STUDENT',
   LECTURER = 'LECTURER',
+  ADMIN = 'ADMIN',
 }
 
 export class SignupRequestDto {

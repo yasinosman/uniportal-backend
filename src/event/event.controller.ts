@@ -32,7 +32,7 @@ export class EventController {
   @HttpCode(HttpStatus.CREATED)
   @Post('/')
   @UseGuards(JwtGuard, RolesGuard)
-  @Roles(USER_ROLE.LECTURER)
+  @Roles(USER_ROLE.LECTURER, USER_ROLE.ADMIN)
   create(@Body(new ValidationPipe()) dto: CreateEventDto) {
     return this.eventService.create(dto);
   }

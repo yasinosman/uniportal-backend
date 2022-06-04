@@ -32,7 +32,7 @@ export class AnnouncementController {
   @HttpCode(HttpStatus.CREATED)
   @Post('/')
   @UseGuards(JwtGuard, RolesGuard)
-  @Roles(USER_ROLE.LECTURER)
+  @Roles(USER_ROLE.LECTURER, USER_ROLE.ADMIN)
   create(@Body(new ValidationPipe()) dto: CreateAnnouncementDto) {
     return this.announcementService.create(dto);
   }

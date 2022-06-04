@@ -31,6 +31,7 @@ model User {
 enum Role {
   STUDENT
   LECTURER
+  ADMIN
 }
 
 model Course {
