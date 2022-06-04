@@ -21,22 +21,83 @@ model User {
   firstName String?
   lastName  String?
 
-  bookmarks Bookmark[]
-
+  Course             Course[]
+  CourseAnnouncement CourseAnnouncement[]
   @@map("users")
 }
 
-model Bookmark {
+model Course {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title String @unique
+
+  lecturerId Int
+  lecturer   User @relation(fields: [lecturerId], references: [id])
+
+  CourseAnnouncement CourseAnnouncement[]
+  CourseAssignments  CourseAssignments[]
+  @@map("courses")
+}
+
+model CourseAnnouncement {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title   String
+  content String
+
+  announcerId Int
+  announcer   User @relation(fields: [announcerId], references: [id])
+
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id])
+
+  @@map("course_announcements")
+}
+
+model CourseAssignments {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   title       String
   description String
-  link        String
+  deadline    DateTime
+  points      Int
 
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id])
 
-  @@map("bookmarks")
+  @@map("course_assignments")
+}
+
+model Announcement {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title    String
+  subtitle String
+  content  String
+  imgURL   String
+  imgAlt   String
+
+  @@map("announcements")
+}
+
+model Event {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title    String
+  subtitle String
+  content  String
+  imgURL   String
+  imgAlt   String
+
+  @@map("events")
 }
