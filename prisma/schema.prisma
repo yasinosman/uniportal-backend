@@ -25,6 +25,7 @@ model User {
 
   Course             Course[]
   CourseAnnouncement CourseAnnouncement[]
+  StudentCourse      StudentCourse[]
   @@map("users")
 }
 
@@ -46,7 +47,19 @@ model Course {
 
   CourseAnnouncement CourseAnnouncement[]
   CourseAssignments  CourseAssignments[]
+  StudentCourse      StudentCourse[]
   @@map("courses")
+}
+
+model StudentCourse {
+  studentId Int
+  student   User @relation(fields: [studentId], references: [id])
+
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id])
+
+  @@unique([studentId, courseId])
+  @@map("student_courses")
 }
 
 model CourseAnnouncement {
