@@ -1,8 +1,17 @@
-import { Controller, Get, NotFoundException, UseGuards } from '@nestjs/common';
-import { GetUser } from 'src/auth/decorator';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Post,
+  UseGuards,
+  ValidationPipe,
+} from '@nestjs/common';
+import { GetUser, Roles } from 'src/auth/decorator';
 import { USER_ROLE } from 'src/auth/dto';
-import { JwtGuard } from 'src/auth/guard';
+import { JwtGuard, RolesGuard } from 'src/auth/guard';
 import { CourseService } from './course.service';
+import { CreateCourseDto } from './dto';
 
 @Controller('courses')
 export class CourseController {
@@ -21,5 +30,12 @@ export class CourseController {
       default:
         throw new NotFoundException(null, 'User role not found');
     }
+  }
+
+  @UseGuards(JwtGuard, RolesGuard)
+  @Post('/')
+  @Roles(USER_ROLE.ADMIN)
+  create(@Body(new ValidationPipe()) dto: CreateCourseDto) {
+    return this.courseService.createCourse(dto);
   }
 }

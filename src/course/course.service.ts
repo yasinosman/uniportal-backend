@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DbService } from 'src/db/db.service';
+import { CreateCourseDto } from './dto';
 
 @Injectable()
 export class CourseService {
@@ -32,7 +33,10 @@ export class CourseService {
   }
 
   async getAllCourses() {
-    console.log('get all courses');
     return await this.dbService.course.findMany();
+  }
+
+  async createCourse(dto: CreateCourseDto) {
+    return await this.dbService.course.create({ data: { ...dto } });
   }
 }
