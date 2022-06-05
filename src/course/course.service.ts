@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DbService } from 'src/db/db.service';
-import { CreateCourseDto } from './dto';
+import { AddAnnouncementDto, AddAssignmentDto, CreateCourseDto } from './dto';
 
 @Injectable()
 export class CourseService {
@@ -54,5 +54,20 @@ export class CourseService {
     });
 
     return { ...course, assignments, announcements };
+  }
+
+  async addAssignmentById(id: number, dto: AddAssignmentDto) {
+    return await this.dbService.courseAssignment.create({
+      data: {
+        courseId: id,
+        ...dto,
+      },
+    });
+  }
+
+  async addAnnouncementById(id: number, dto: AddAnnouncementDto, user: any) {
+    return await this.dbService.courseAnnouncement.create({
+      data: { courseId: id, announcerId: user.id, ...dto },
+    });
   }
 }

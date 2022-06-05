@@ -12,7 +12,7 @@ import { GetUser, Roles } from 'src/auth/decorator';
 import { USER_ROLE } from 'src/auth/dto';
 import { JwtGuard, RolesGuard } from 'src/auth/guard';
 import { CourseService } from './course.service';
-import { CreateCourseDto } from './dto';
+import { AddAnnouncementDto, AddAssignmentDto, CreateCourseDto } from './dto';
 
 @Controller('courses')
 export class CourseController {
@@ -46,13 +46,24 @@ export class CourseController {
     return this.courseService.getCourseDetailById(parseInt(id));
   }
 
-  // @UseGuards(JwtGuard, RolesGuard)
-  // @Post('/:id/assignments')
-  // @Roles(USER_ROLE.ADMIN, USER_ROLE.LECTURER)
-  // addAssignment(@Body(new ValidationPipe()) dto: CreateCourseDto) {}
+  @UseGuards(JwtGuard, RolesGuard)
+  @Post('/:id/assignments')
+  @Roles(USER_ROLE.ADMIN, USER_ROLE.LECTURER)
+  addAssignment(
+    @Param('id') id: string,
+    @Body(new ValidationPipe()) dto: AddAssignmentDto,
+  ) {
+    return this.courseService.addAssignmentById(parseInt(id), dto);
+  }
 
-  // @UseGuards(JwtGuard, RolesGuard)
-  // @Post('/:id/announcements')
-  // @Roles(USER_ROLE.ADMIN, USER_ROLE.LECTURER)
-  // addAnnouncement(@Body(new ValidationPipe()) dto: CreateCourseDto) {}
+  @UseGuards(JwtGuard, RolesGuard)
+  @Post('/:id/announcements')
+  @Roles(USER_ROLE.ADMIN, USER_ROLE.LECTURER)
+  addAnnouncement(
+    @Param('id') id: string,
+    @Body(new ValidationPipe()) dto: AddAnnouncementDto,
+    @GetUser() user: any,
+  ) {
+    return this.courseService.addAnnouncementById(parseInt(id), dto, user);
+  }
 }
