@@ -47,6 +47,7 @@ export class CourseService {
 
     const announcements = await this.dbService.courseAnnouncement.findMany({
       where: { courseId: id },
+      include: { announcer: true },
     });
 
     const course = await this.dbService.course.findUnique({
