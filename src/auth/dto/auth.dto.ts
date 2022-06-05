@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  IsUrl,
 } from 'class-validator';
 
 export enum USER_ROLE {
@@ -28,6 +29,10 @@ export class SignupRequestDto {
   @IsString()
   @IsNotEmpty()
   lastName: string;
+
+  @IsNotEmpty()
+  @IsUrl()
+  imgURL: string;
 
   @IsOptional()
   @IsEnum(USER_ROLE)

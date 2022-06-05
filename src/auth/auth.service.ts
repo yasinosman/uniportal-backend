@@ -25,6 +25,7 @@ export class AuthService {
           firstName: dto.firstName,
           lastName: dto.lastName,
           role: dto.role,
+          imgURL: dto.imgURL,
         },
       });
 
