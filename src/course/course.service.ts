@@ -39,4 +39,20 @@ export class CourseService {
   async createCourse(dto: CreateCourseDto) {
     return await this.dbService.course.create({ data: { ...dto } });
   }
+
+  async getCourseDetailById(id: number) {
+    const assignments = await this.dbService.courseAssignment.findMany({
+      where: { courseId: id },
+    });
+
+    const announcements = await this.dbService.courseAnnouncement.findMany({
+      where: { courseId: id },
+    });
+
+    const course = await this.dbService.course.findUnique({
+      where: { id: id },
+    });
+
+    return { ...course, assignments, announcements };
+  }
 }

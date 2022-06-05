@@ -46,7 +46,7 @@ model Course {
   lecturer   User @relation(fields: [lecturerId], references: [id])
 
   CourseAnnouncement CourseAnnouncement[]
-  CourseAssignments  CourseAssignments[]
+  CourseAssignments  CourseAssignment[]
   StudentCourse      StudentCourse[]
   @@map("courses")
 }
@@ -79,7 +79,7 @@ model CourseAnnouncement {
   @@map("course_announcements")
 }
 
-model CourseAssignments {
+model CourseAssignment {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

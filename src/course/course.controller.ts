@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   NotFoundException,
+  Param,
   Post,
   UseGuards,
   ValidationPipe,
@@ -38,4 +39,20 @@ export class CourseController {
   create(@Body(new ValidationPipe()) dto: CreateCourseDto) {
     return this.courseService.createCourse(dto);
   }
+
+  @UseGuards(JwtGuard)
+  @Get('/:id')
+  getDetail(@Param('id') id: string) {
+    return this.courseService.getCourseDetailById(parseInt(id));
+  }
+
+  // @UseGuards(JwtGuard, RolesGuard)
+  // @Post('/:id/assignments')
+  // @Roles(USER_ROLE.ADMIN, USER_ROLE.LECTURER)
+  // addAssignment(@Body(new ValidationPipe()) dto: CreateCourseDto) {}
+
+  // @UseGuards(JwtGuard, RolesGuard)
+  // @Post('/:id/announcements')
+  // @Roles(USER_ROLE.ADMIN, USER_ROLE.LECTURER)
+  // addAnnouncement(@Body(new ValidationPipe()) dto: CreateCourseDto) {}
 }
