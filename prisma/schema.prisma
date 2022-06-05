@@ -47,6 +47,10 @@ model Course {
   lecturerId Int
   lecturer   User @relation(fields: [lecturerId], references: [id])
 
+  credit Int
+
+  semester String
+
   CourseAnnouncement CourseAnnouncement[]
   CourseAssignments  CourseAssignment[]
   StudentCourse      StudentCourse[]

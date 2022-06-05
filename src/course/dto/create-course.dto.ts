@@ -8,4 +8,12 @@ export class CreateCourseDto {
   @IsNotEmpty()
   @IsNumber()
   lecturerId: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  credit: number;
+
+  @IsNotEmpty()
+  @IsString()
+  semester: string;
 }
